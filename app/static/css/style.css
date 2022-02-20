@@ -721,7 +721,9 @@ p.footer-para {
     display: inline-block;
 }
 footer{
-    background: #191818;
+
+ background: #191818d1;
+ margin-top: 70px;
 }
 .footercopy-social ul li a {
     color: #333;
