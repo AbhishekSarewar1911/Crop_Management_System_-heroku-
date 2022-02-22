@@ -1,4 +1,4 @@
--f https://download.pytorch.org/whl/cu102/torch_stable.html
+-f https://download.pytorch.org/whl/torch_stable.html
 argon2-cffi==20.1.0
 astroid==2.4.2
 async-generator==1.10
