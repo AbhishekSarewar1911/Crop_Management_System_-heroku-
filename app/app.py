@@ -196,7 +196,7 @@ def crop_prediction():
 
 #fert_recommend to fertilizer_recommend and enable ph
 @ app.route('/fertilizer-predict', methods=['POST'])
-def fertilizer_recommend():
+def fert_recommend():
     title = 'Harvestify - Fertilizer Suggestion'
 
     crop_name = str(request.form['cropname'])
