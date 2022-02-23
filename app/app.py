@@ -194,16 +194,16 @@ def crop_prediction():
 
 # render fertilizer recommendation result page
 
-
+#fert_recommend to fertilizer_recommend and enable ph
 @ app.route('/fertilizer-predict', methods=['POST'])
-def fert_recommend():
+def fertilizer_recommend():
     title = 'Harvestify - Fertilizer Suggestion'
 
     crop_name = str(request.form['cropname'])
     N = int(request.form['nitrogen'])
     P = int(request.form['phosphorous'])
     K = int(request.form['pottasium'])
-    # ph = float(request.form['ph'])
+    ph = float(request.form['ph'])
 
     df = pd.read_csv('Data/fertilizer.csv')
 
