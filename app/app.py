@@ -1,7 +1,8 @@
 # Importing essential libraries and modules
 
+from turtle import title
 from cv2 import redirectError
-from flask import Flask, render_template, request, Markup
+from flask import Flask, render_template,redirect,request, Markup
 import numpy as np
 import pandas as pd
 from utils.disease import disease_dic
@@ -14,6 +15,10 @@ import torch
 from torchvision import transforms
 from PIL import Image
 from utils.model import ResNet9
+
+import os
+import sqlite3
+
 # ==============================================================================================
 
 # -------------------------LOADING THE TRAINED MODELS -----------------------------------------------
@@ -126,6 +131,7 @@ def predict_image(img, model=disease_model):
 # ===============================================================================================
 # ------------------------------------ FLASK APP -------------------------------------------------
 
+currentlocation = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 
@@ -153,6 +159,46 @@ def fertilizer_recommendation():
     title = 'Harvestify - Fertilizer Suggestion'
 
     return render_template('fertilizer.html', title=title)
+
+#  login page design
+@ app.route('/login')
+def homepage():
+    title = 'home page'
+    return render_template('homepage.html', title=title)
+
+@app.route("/login", methods = ["POST"])
+def checklogin():
+    UN = request.form['Username']
+    PW = request.form['Password']
+
+    sqlconnection = sqlite3.Connection(currentlocation+ "\app.db")
+    cursor = sqlconnection.cursor()
+    query1 = "SELECT Username, Password From Users WHERE Username = '{un}' AND Password = '{pw}'".format(un = UN, pw = PW)
+
+    rows = cursor.execute(query1)
+    rows = rows.fetchall()
+    if len(rows)==1:
+        return render_template("index.html")
+    else:
+        return render_template("/register")
+
+@app.route("/register", methods= ["GET", "POST"])
+def registerpage():
+    if request.method == "POST":
+        dUN = request.form['DUsername']
+        dPW = request.form['DPassword']
+        Uemail = request.form['Emailuser']
+        sqlconnection = sqlite3.Connection(currentlocation+ "\app.db")
+        cursor = sqlconnection.cursor()
+        query1 = "INSERT INTO Users VALUES('{u}','{p}','{e}')".format(u = dUN, p = dPW, e = Uemail)
+        cursor.execute(query1)
+        sqlconnection.commit()
+        return redirect("/login")
+    return render_template("Register.html")
+
+
+
+
 
 # render disease prediction input page
 
