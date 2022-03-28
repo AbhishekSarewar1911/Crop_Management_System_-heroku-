@@ -163,7 +163,7 @@ def fertilizer_recommendation():
 #  login page design
 @ app.route('/login')
 def homepage():
-    title = 'home page'
+    title = 'homepage'
     return render_template('homepage.html', title=title)
 
 @app.route("/login", methods = ["POST"])
@@ -251,7 +251,7 @@ def fert_recommend():
     K = int(request.form['pottasium'])
    # ph = float(request.form['ph'])
 
-    df = pd.read_csv('Data/fertilizer.csv')
+    df = pd.read_csv('Data-processed/fertilizer.csv')
 
     nr = df[df['Crop'] == crop_name]['N'].iloc[0]
     pr = df[df['Crop'] == crop_name]['P'].iloc[0]

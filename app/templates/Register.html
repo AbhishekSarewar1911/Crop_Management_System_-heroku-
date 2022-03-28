@@ -230,15 +230,15 @@ header {
                 <h1 class="text-light display-4" style="font-size:70px; margin-top: 134px">Welcome to the World of Crops Management System</h1>
             </div>
             <div class="col-md-4">
-            <div class="card" style="margin-top: 10px">
+            <div class="card" style="margin-top: 91px">
                 <div class="card-body">
-                    <form class="form" method="post">
+                    <form class="form" method="POST" action="{{ url_for('registerpage') }}">
                         <label>Name</label><br>
-                        <input type="text" class="form-control" placeholder="Desired UserName" name="DUsername"><br>
+                        <input type="text" class="form-control" placeholder="Desired UserName" name="DUsername" required><br>
                         <label>Email</label><br>
-                        <input type="email" class="form-control" placeholder="Enter Email" name="Emailuser"><br>
+                        <input type="email" class="form-control" placeholder="Enter Email" name="Emailuser" required><br>
                         <label>Password</label><br>
-                        <input type="password" class="form-control" placeholder="Desired Password" name="Dpassword"><br><br>
+                        <input type="password" class="form-control" placeholder="Desired Password" name="Dpassword" required><br><br>
                         <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login"><br>
                     </form>
                     <p class="mt-2">Already a Member? <a href="/login">Login Here</a></p>
