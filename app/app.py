@@ -171,7 +171,7 @@ def checklogin():
     UN = request.form['Username']
     PW = request.form['Password']
 
-    sqlconnection = sqlite3.Connection(currentlocation+ "\app.db")
+    sqlconnection = sqlite3.Connection(currentlocation+ "\Login.db")
     cursor = sqlconnection.cursor()
     query1 = "SELECT Username, Password From Users WHERE Username = '{un}' AND Password = '{pw}'".format(un = UN, pw = PW)
 
@@ -187,8 +187,8 @@ def registerpage():
     if request.method == "POST":
         dUN = request.form['DUsername']
         dPW = request.form['DPassword']
-        Uemail = request.form['Emailuser']
-        sqlconnection = sqlite3.Connection(currentlocation+ "\app.db")
+        Uemail = request.form['Email']
+        sqlconnection = sqlite3.Connection(currentlocation+ "\Login.db")
         cursor = sqlconnection.cursor()
         query1 = "INSERT INTO Users VALUES('{u}','{p}','{e}')".format(u = dUN, p = dPW, e = Uemail)
         cursor.execute(query1)
