@@ -166,7 +166,7 @@ def homepage():
     title = 'homepage'
     return render_template('homepage.html', title=title)
 
-@app.route("/login", methods = ["POST"])
+@ app.route("/login", methods = ["POST"])
 def checklogin():
     UN = request.form['Username']
     PW = request.form['Password']
@@ -182,7 +182,7 @@ def checklogin():
     else:
         return render_template("/register")
 
-@app.route("/register", methods= ["GET", "POST"])
+@ app.route("/register", methods= ["GET", "POST"])
 def registerpage():
     if request.method == "POST":
         dUN = request.form['DUsername']
@@ -251,7 +251,7 @@ def fert_recommend():
     K = int(request.form['pottasium'])
    # ph = float(request.form['ph'])
 
-    df = pd.read_csv('Data-processed/fertilizer.csv')
+    df = pd.read_csv(r'C:\Users\abhis\OneDrive\Desktop\Crop_Management_System_-heroku-\Data-processed\fertilizer.csv')
 
     nr = df[df['Crop'] == crop_name]['N'].iloc[0]
     pr = df[df['Crop'] == crop_name]['P'].iloc[0]
