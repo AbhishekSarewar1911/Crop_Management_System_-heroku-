@@ -1,6 +1,6 @@
 # Importing essential libraries and modules
 
-from turtle import title
+# from turtle import title
 from cv2 import redirectError
 from flask import Flask, render_template,redirect,request, Markup
 import numpy as np
