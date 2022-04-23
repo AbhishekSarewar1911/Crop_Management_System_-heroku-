@@ -1,6 +1,5 @@
 # Importing essential libraries and modules
 
-# from turtle import title
 from cv2 import redirectError
 from flask import Flask, render_template,redirect,request, Markup
 import numpy as np
@@ -16,9 +15,7 @@ from torchvision import transforms
 from PIL import Image
 from utils.model import ResNet9
 
-import os
-import sqlite3
-
+import mysql.connector
 # ==============================================================================================
 
 # -------------------------LOADING THE TRAINED MODELS -----------------------------------------------
@@ -131,8 +128,6 @@ def predict_image(img, model=disease_model):
 # ===============================================================================================
 # ------------------------------------ FLASK APP -------------------------------------------------
 
-currentlocation = os.path.dirname(os.path.abspath(__file__))
-
 app = Flask(__name__)
 
 # render home page
@@ -168,37 +163,48 @@ def homepage():
 
 @ app.route("/login", methods = ["POST"])
 def checklogin():
-    UN = request.form['Username']
-    PW = request.form['Password']
-
-    sqlconnection = sqlite3.Connection(currentlocation+ "\Login.db")
-    cursor = sqlconnection.cursor()
-    query1 = "SELECT Username, Password From Users WHERE Username = '{un}' AND Password = '{pw}'".format(un = UN, pw = PW)
-
-    rows = cursor.execute(query1)
-    rows = rows.fetchall()
-    if len(rows)==1:
-        return render_template("index.html")
-    else:
-        return render_template("/register")
+    mydb = mysql.connector.connect(
+       host="localhost",
+       user="root",
+       password="",
+       database="login"
+    )
+    mycursor=mydb.cursor()
+    if request.method=='POST':
+        signin=request.form
+        UN=signin['Username']
+        PW=signin['Password']
+        mycursor.execute("select *from users where 	Username='"+UN+"' and 	Password='"+PW+"'")
+        r=mycursor.fetchall()
+        count=mycursor.rowcount
+        if count==1:
+            return render_template("index.html")
+        elif count>1:
+            return "More than one user"
+        else:
+            return render_template("/register")
+    mydb.commit()
+    mycursor.close()
 
 @ app.route("/register", methods= ["GET", "POST"])
 def registerpage():
-    if request.method == "POST":
-        dUN = request.form['DUsername']
-        dPW = request.form['DPassword']
-        Uemail = request.form['Email']
-        sqlconnection = sqlite3.Connection(currentlocation+ "\Login.db")
-        cursor = sqlconnection.cursor()
-        query1 = "INSERT INTO Users VALUES('{u}','{p}','{e}')".format(u = dUN, p = dPW, e = Uemail)
-        cursor.execute(query1)
-        sqlconnection.commit()
+    mydb=mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="login"
+    )
+    mycursor=mydb.cursor()
+    if request.method=='POST':
+        signup=request.form
+        UN=signup['DUsername']
+        Uemail=signup['Email']
+        PW=signup['DPassword']
+        mycursor.execute("insert into users (Username,Email,Password)values(%s,%s,%s)",(UN,Uemail,PW))
+        mydb.commit()
+        mycursor.close()
         return redirect("/login")
     return render_template("Register.html")
-
-
-
-
 
 # render disease prediction input page
 

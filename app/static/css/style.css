@@ -371,8 +371,17 @@ li > a:only-child:after { content: ''; }
     z-index: 1;
 }
 
-.banner-top {
-    background: url(../images/fern-1.jpg) no-repeat center;
+.banner-top{
+    background: url('../images/ferns.jpg');
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+}
+
+.bnr-tp0 {
+    background: url(../images/ferns.jpg) no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -381,7 +390,7 @@ li > a:only-child:after { content: ''; }
 }
 
 .banner-top1 {
-    background: url(../images/1.jpg) no-repeat center;
+    background: url(../images/ferns.jpg) no-repeat center;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
