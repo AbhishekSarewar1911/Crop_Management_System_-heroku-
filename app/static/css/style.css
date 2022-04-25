@@ -478,6 +478,7 @@ li > a:only-child:after { content: ''; }
 
 /*-- about --*/
 h3.heading {
+	/* margin-top: 300px; */
     font-size: 40px;
     letter-spacing: 2px;
     font-weight: 600;
@@ -730,9 +731,9 @@ p.footer-para {
     display: inline-block;
 }
 footer{
-
+ margin-top: 300px;
  background: #191818d1;
- margin-top: 70px;
+ /* margin-top: 70px; */
 }
 .footercopy-social ul li a {
     color: #333;
