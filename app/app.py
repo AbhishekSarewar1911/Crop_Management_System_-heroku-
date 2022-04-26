@@ -206,6 +206,12 @@ def registerpage():
         return redirect("/login")
     return render_template("Register.html")
 
+@ app.route('/about us')
+def about():
+    title = 'About us - Info'
+
+    return render_template('about.html', title=title)
+
 # render disease prediction input page
 
 
